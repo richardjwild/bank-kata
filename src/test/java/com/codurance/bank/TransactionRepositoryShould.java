@@ -17,8 +17,8 @@ public class TransactionRepositoryShould {
 
     @Test
     public void return_all_posted_transactions() {
-        Transaction t1 = new Transaction(1, LocalDateTime.now());
-        Transaction t2 = new Transaction(2, LocalDateTime.now().plusSeconds(1));
+        Transaction t1 = new Transaction(1, LocalDateTime.now(), 0);
+        Transaction t2 = new Transaction(2, LocalDateTime.now().plusSeconds(1), 0);
 
         transactionRepository.postTransaction(t1);
         transactionRepository.postTransaction(t2);
