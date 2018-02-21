@@ -5,8 +5,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.time.LocalDateTime;
-
 import static java.time.LocalDateTime.of;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,12 +20,14 @@ public class BankAccountAcceptanceTest {
 
     @Test
     public void print_a_statement_showing_posted_transactions() {
+        TransactionRepository transactionRepository = new TransactionRepository();
+        BankAccount bankAccount = new BankAccount(transactionRepository, clock);
+
         when(clock.currentTime())
                 .thenReturn(of(2012, 1, 10, 0, 0))
                 .thenReturn(of(2012, 1, 13, 0, 0))
                 .thenReturn(of(2012, 1, 14, 0, 0));
 
-        BankAccount bankAccount = new BankAccount();
         bankAccount.deposit(1000);
         bankAccount.deposit(2000);
         bankAccount.withdraw(500);
