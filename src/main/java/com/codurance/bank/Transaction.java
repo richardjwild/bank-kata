@@ -35,6 +35,10 @@ public class Transaction {
         return timestamp;
     }
 
+    public int balance() {
+        return balance;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
