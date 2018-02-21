@@ -7,7 +7,10 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import static java.util.Arrays.asList;
+import static org.mockito.Matchers.longThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -19,6 +22,9 @@ public class BankAccountShould {
 
     @Mock
     Clock clock;
+
+    @Mock
+    Statement statement;
 
     @InjectMocks
     private BankAccount account;
@@ -45,6 +51,20 @@ public class BankAccountShould {
 
         Transaction withdrawalTransaction = new Transaction(-1 * amount, timestamp);
         verify(transactionRepository).postTransaction(withdrawalTransaction);
+    }
+
+    @Test
+    public void print_a_statement() {
+        List<Transaction> listOfTransactions = asList(aTransaction(), aTransaction());
+        when(transactionRepository.findAllTransactions()).thenReturn(listOfTransactions);
+
+        account.statement();
+
+        verify(statement).print(listOfTransactions);
+    }
+
+    private Transaction aTransaction() {
+        return new Transaction(1, LocalDateTime.now());
     }
 
 }
