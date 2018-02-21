@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -25,7 +26,7 @@ public class StatementShould {
     private Output output;
 
     @Mock
-    private Transaction transaction;
+    private Transaction transaction, earlierTransaction;
 
     @InjectMocks
     private Statement statement;
@@ -43,9 +44,25 @@ public class StatementShould {
         when(transactionFormatter.format(transaction)).thenReturn("a formatted transaction");
 
         statement.print(asList(transaction));
+
         verify(output).print(
                 "date || credit || debit || balance\n" +
                 "a formatted transaction");
     }
 
+    @Test
+    public void print_transactions_in_reverse_date_order() {
+        LocalDateTime timestamp = LocalDateTime.now();
+        when(transaction.timestamp()).thenReturn(timestamp);
+        when(earlierTransaction.timestamp()).thenReturn(timestamp.minusSeconds(1));
+        when(transactionFormatter.format(transaction)).thenReturn("later transaction");
+        when(transactionFormatter.format(earlierTransaction)).thenReturn("earlier transaction");
+
+        statement.print(asList(earlierTransaction, transaction));
+
+        verify(output).print(
+                "date || credit || debit || balance\n" +
+                        "later transaction\n" +
+                        "earlier transaction");
+    }
 }

@@ -31,6 +31,10 @@ public class Transaction {
         return amount;
     }
 
+    public LocalDateTime timestamp() {
+        return timestamp;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +

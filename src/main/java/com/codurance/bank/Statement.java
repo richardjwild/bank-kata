@@ -1,5 +1,6 @@
 package com.codurance.bank;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Statement {
@@ -18,7 +19,9 @@ public class Statement {
         stringBuilder.append("date || credit || debit || balance");
 
 
-        listOfTransactions.forEach(transaction -> {
+        listOfTransactions.stream()
+                .sorted(Comparator.comparing(Transaction::timestamp).reversed())
+                .forEach(transaction -> {
             stringBuilder.append("\n");
             stringBuilder.append(formatter.format(transaction));
         });
