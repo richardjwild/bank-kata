@@ -18,4 +18,13 @@ public class TransactionFormatterShould {
 
         assertThat(result).isEqualTo("14/01/2012 || 1000.00 || || 1500.00");
     }
+
+    @Test
+    public void format_a_withdrawal_transaction() {
+        Transaction transaction = new Transaction(-1000, LocalDateTime.of(2012, 1, 14, 0, 0), 1500);
+
+        String result = transactionFormatter.format(transaction);
+
+        assertThat(result).isEqualTo("14/01/2012 || || 1000.00 || 1500.00");
+    }
 }
