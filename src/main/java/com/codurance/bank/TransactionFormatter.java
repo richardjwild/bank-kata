@@ -2,7 +2,7 @@ package com.codurance.bank;
 
 public class TransactionFormatter {
 
-    public void format(Transaction any) {
+    public String format(Transaction any) {
         throw new UnsupportedOperationException();
     }
 }
