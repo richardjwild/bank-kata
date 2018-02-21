@@ -21,7 +21,7 @@ public class BankAccountAcceptanceTest {
     @Test
     public void print_a_statement_showing_posted_transactions() {
         TransactionRepository transactionRepository = new TransactionRepository();
-        Statement statement = new Statement();
+        Statement statement = new Statement(output);
         BankAccount bankAccount = new BankAccount(transactionRepository, clock, statement);
 
         when(clock.currentTime())
