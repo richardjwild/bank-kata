@@ -11,11 +11,18 @@ public class BankAccount {
     }
 
     public void deposit(int amount) {
-        transactionRepository.postTransaction(new Transaction(amount, clock.currentTime()));
+        postTransaction(amount);
     }
 
     public void withdraw(int amount) {
+        postTransaction(-amount);
+    }
 
+    private void postTransaction(int transactionAmount) {
+        Transaction transaction = new Transaction(
+                transactionAmount,
+                clock.currentTime());
+        transactionRepository.postTransaction(transaction);
     }
 
     public void statement() {
