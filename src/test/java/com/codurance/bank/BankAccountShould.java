@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -38,7 +37,7 @@ public class BankAccountShould {
 
         account.deposit(amount);
 
-        var depositTransaction = new Transaction(amount, timestamp, amount);
+        var depositTransaction = new Transaction(amount, timestamp);
         verify(transactionRepository).postTransaction(depositTransaction);
     }
 
@@ -51,7 +50,7 @@ public class BankAccountShould {
 
         account.withdraw(amount);
 
-        var withdrawalTransaction = new Transaction(-amount, timestamp, -amount);
+        var withdrawalTransaction = new Transaction(-amount, timestamp);
         verify(transactionRepository).postTransaction(withdrawalTransaction);
     }
 
@@ -69,8 +68,8 @@ public class BankAccountShould {
     public void calculate_running_balance() {
         var timestamp = LocalDateTime.now();
         when(clock.currentTime()).thenReturn(timestamp);
-        var firstTransaction = new Transaction(10, timestamp, 10);
-        var secondTransaction = new Transaction(-5, timestamp, 5);
+        var firstTransaction = new Transaction(10, timestamp);
+        var secondTransaction = new Transaction(-5, timestamp);
         when(transactionRepository.findAllTransactions())
                 .thenReturn(emptyList())
                 .thenReturn(asList(firstTransaction));
@@ -83,7 +82,7 @@ public class BankAccountShould {
     }
 
     private Transaction aTransaction() {
-        return new Transaction(1, LocalDateTime.now(), 0);
+        return new Transaction(1, LocalDateTime.now());
     }
 
 }

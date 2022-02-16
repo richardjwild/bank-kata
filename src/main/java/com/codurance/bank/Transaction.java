@@ -9,12 +9,10 @@ public class Transaction {
 
     private final int amount;
     private final LocalDateTime timestamp;
-    private final int balance;
 
-    public Transaction(int amount, LocalDateTime timestamp, int balance) {
+    public Transaction(int amount, LocalDateTime timestamp) {
         this.amount = amount;
         this.timestamp = timestamp;
-        this.balance = balance;
     }
 
     @Override
@@ -35,16 +33,11 @@ public class Transaction {
         return timestamp;
     }
 
-    public int balance() {
-        return balance;
-    }
-
     @Override
     public String toString() {
         return "Transaction{" +
                 "amount=" + amount +
                 ", timestamp=" + timestamp +
-                ", balance=" + balance +
                 '}';
     }
 }

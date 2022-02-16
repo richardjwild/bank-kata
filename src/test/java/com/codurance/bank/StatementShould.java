@@ -11,16 +11,13 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StatementShould {
 
     private static final List<Transaction> NO_TRANSACTIONS = emptyList();
-
-    @Mock
-    private TransactionFormatter transactionFormatter;
 
     @Mock
     private Output output;
@@ -35,34 +32,34 @@ public class StatementShould {
     public void print_an_empty_statement() {
         statement.print(NO_TRANSACTIONS);
 
-        verify(transactionFormatter, never()).format(any());
         verify(output).print("date || credit || debit || balance");
     }
 
     @Test
     public void print_a_formatted_transaction() {
-        when(transactionFormatter.format(transaction)).thenReturn("a formatted transaction");
+        when(transaction.timestamp()).thenReturn(LocalDateTime.of(2022, 02, 16, 0, 0));
+        when(transaction.amount()).thenReturn(100);
 
         statement.print(asList(transaction));
 
         verify(output).print(
                 "date || credit || debit || balance\n" +
-                "a formatted transaction");
+                "16/02/2022 || 100.00 || || 100.00");
     }
 
     @Test
     public void print_transactions_in_reverse_date_order() {
-        var timestamp = LocalDateTime.now();
+        var timestamp = LocalDateTime.of(2022, 02, 16, 0, 0);
         when(transaction.timestamp()).thenReturn(timestamp);
-        when(earlierTransaction.timestamp()).thenReturn(timestamp.minusSeconds(1));
-        when(transactionFormatter.format(transaction)).thenReturn("later transaction");
-        when(transactionFormatter.format(earlierTransaction)).thenReturn("earlier transaction");
+        when(transaction.amount()).thenReturn(-10);
+        when(earlierTransaction.timestamp()).thenReturn(timestamp.minusDays(1));
+        when(earlierTransaction.amount()).thenReturn(100);
 
         statement.print(asList(earlierTransaction, transaction));
 
         verify(output).print(
                 "date || credit || debit || balance\n" +
-                        "later transaction\n" +
-                        "earlier transaction");
+                "16/02/2022 || || 10.00 || 90.00\n" +
+                "15/02/2022 || 100.00 || || 100.00");
     }
 }

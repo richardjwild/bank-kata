@@ -21,8 +21,7 @@ public class BankAccountAcceptanceTest {
     @Test
     public void print_a_statement_showing_posted_transactions() {
         var transactionRepository = new TransactionRepository();
-        var formatter = new TransactionFormatter();
-        var statement = new Statement(output, formatter);
+        var statement = new Statement(output);
         var bankAccount = new BankAccount(transactionRepository, clock, statement);
 
         when(clock.currentTime())

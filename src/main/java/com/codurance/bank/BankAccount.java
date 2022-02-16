@@ -21,13 +21,9 @@ public class BankAccount {
     }
 
     private void postTransaction(int transactionAmount) {
-        var balance = transactionRepository.findAllTransactions().stream()
-                .mapToInt(Transaction::amount)
-                .sum();
-
         var transaction = new Transaction(
                 transactionAmount,
-                clock.currentTime(), balance + transactionAmount);
+                clock.currentTime());
         transactionRepository.postTransaction(transaction);
     }
 
