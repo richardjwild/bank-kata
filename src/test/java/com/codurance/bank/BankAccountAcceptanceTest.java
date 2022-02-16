@@ -20,10 +20,10 @@ public class BankAccountAcceptanceTest {
 
     @Test
     public void print_a_statement_showing_posted_transactions() {
-        TransactionRepository transactionRepository = new TransactionRepository();
-        TransactionFormatter formatter = new TransactionFormatter();
-        Statement statement = new Statement(output, formatter);
-        BankAccount bankAccount = new BankAccount(transactionRepository, clock, statement);
+        var transactionRepository = new TransactionRepository();
+        var formatter = new TransactionFormatter();
+        var statement = new Statement(output, formatter);
+        var bankAccount = new BankAccount(transactionRepository, clock, statement);
 
         when(clock.currentTime())
                 .thenReturn(of(2012, 1, 10, 0, 0))

@@ -52,7 +52,7 @@ public class StatementShould {
 
     @Test
     public void print_transactions_in_reverse_date_order() {
-        LocalDateTime timestamp = LocalDateTime.now();
+        var timestamp = LocalDateTime.now();
         when(transaction.timestamp()).thenReturn(timestamp);
         when(earlierTransaction.timestamp()).thenReturn(timestamp.minusSeconds(1));
         when(transactionFormatter.format(transaction)).thenReturn("later transaction");

@@ -31,33 +31,33 @@ public class BankAccountShould {
 
     @Test
     public void post_a_deposit() {
-        int amount = 10;
-        LocalDateTime timestamp = LocalDateTime.now();
+        var amount = 10;
+        var timestamp = LocalDateTime.now();
         when(clock.currentTime()).thenReturn(timestamp);
         when(transactionRepository.findAllTransactions()).thenReturn(emptyList());
 
         account.deposit(amount);
 
-        Transaction depositTransaction = new Transaction(amount, timestamp, amount);
+        var depositTransaction = new Transaction(amount, timestamp, amount);
         verify(transactionRepository).postTransaction(depositTransaction);
     }
 
     @Test
     public void post_a_withdrawal() {
-        LocalDateTime timestamp = LocalDateTime.now();
-        int amount = 10;
+        var timestamp = LocalDateTime.now();
+        var amount = 10;
         when(clock.currentTime()).thenReturn(timestamp);
         when(transactionRepository.findAllTransactions()).thenReturn(emptyList());
 
         account.withdraw(amount);
 
-        Transaction withdrawalTransaction = new Transaction(-amount, timestamp, -amount);
+        var withdrawalTransaction = new Transaction(-amount, timestamp, -amount);
         verify(transactionRepository).postTransaction(withdrawalTransaction);
     }
 
     @Test
     public void print_a_statement() {
-        List<Transaction> listOfTransactions = asList(aTransaction(), aTransaction());
+        var listOfTransactions = asList(aTransaction(), aTransaction());
         when(transactionRepository.findAllTransactions()).thenReturn(listOfTransactions);
 
         account.statement();
@@ -67,10 +67,10 @@ public class BankAccountShould {
 
     @Test
     public void calculate_running_balance() {
-        LocalDateTime timestamp = LocalDateTime.now();
+        var timestamp = LocalDateTime.now();
         when(clock.currentTime()).thenReturn(timestamp);
-        Transaction firstTransaction = new Transaction(10, timestamp, 10);
-        Transaction secondTransaction = new Transaction(-5, timestamp, 5);
+        var firstTransaction = new Transaction(10, timestamp, 10);
+        var secondTransaction = new Transaction(-5, timestamp, 5);
         when(transactionRepository.findAllTransactions())
                 .thenReturn(emptyList())
                 .thenReturn(asList(firstTransaction));

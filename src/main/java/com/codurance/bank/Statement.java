@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Statement {
 
-    private Output output;
+    private final Output output;
     private final TransactionFormatter formatter;
 
     public Statement(Output output, TransactionFormatter formatter) {
@@ -14,18 +14,14 @@ public class Statement {
     }
 
     public void print(List<Transaction> listOfTransactions) {
-        StringBuilder stringBuilder = new StringBuilder();
-
+        var stringBuilder = new StringBuilder();
         stringBuilder.append("date || credit || debit || balance");
-
-
         listOfTransactions.stream()
                 .sorted(Comparator.comparing(Transaction::timestamp).reversed())
                 .forEach(transaction -> {
             stringBuilder.append("\n");
             stringBuilder.append(formatter.format(transaction));
         });
-
         output.print(stringBuilder.toString());
     }
 }
