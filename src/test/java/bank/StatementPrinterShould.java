@@ -1,10 +1,10 @@
 package bank;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,8 +14,8 @@ import static java.util.Collections.emptyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class StatementPrinterShould {
+@ExtendWith(MockitoExtension.class)
+class StatementPrinterShould {
 
     private static final List<Transaction> NO_TRANSACTIONS = emptyList();
 
@@ -27,20 +27,20 @@ public class StatementPrinterShould {
 
     private StatementPrinter statementPrinter;
 
-    @Before
+    @BeforeEach
     public void setup() {
         statementPrinter = new StatementPrinter(new StatementFormatter(), output);
     }
 
     @Test
-    public void print_an_empty_statement() {
+    void print_an_empty_statement() {
         statementPrinter.print(NO_TRANSACTIONS);
 
         verify(output).print("date || credit || debit || balance");
     }
 
     @Test
-    public void print_a_formatted_credit_transaction() {
+    void print_a_formatted_credit_transaction() {
         when(transaction.timestamp()).thenReturn(LocalDateTime.of(2022, 02, 16, 0, 0));
         when(transaction.amount()).thenReturn(100);
 
@@ -52,7 +52,7 @@ public class StatementPrinterShould {
     }
 
     @Test
-    public void print_a_formatted_debit_transaction() {
+    void print_a_formatted_debit_transaction() {
         when(transaction.timestamp()).thenReturn(LocalDateTime.of(2022, 02, 16, 0, 0));
         when(transaction.amount()).thenReturn(-100);
 
@@ -64,7 +64,7 @@ public class StatementPrinterShould {
     }
 
     @Test
-    public void print_transactions_in_reverse_date_order() {
+    void print_transactions_in_reverse_date_order() {
         var timestamp = LocalDateTime.of(2022, 02, 16, 0, 0);
         when(transaction.timestamp()).thenReturn(timestamp);
         when(transaction.amount()).thenReturn(-100);

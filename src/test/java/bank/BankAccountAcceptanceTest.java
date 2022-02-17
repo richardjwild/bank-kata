@@ -1,16 +1,16 @@
 package bank;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static java.time.LocalDateTime.of;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class BankAccountAcceptanceTest {
+@ExtendWith(MockitoExtension.class)
+class BankAccountAcceptanceTest {
 
     @Mock
     PrintOutput output;
@@ -19,7 +19,7 @@ public class BankAccountAcceptanceTest {
     private Clock clock;
 
     @Test
-    public void print_a_statement_showing_posted_transactions() {
+    void print_a_statement_showing_posted_transactions() {
         var transactionRepository = new InMemoryTransactionRepository();
         var statement = new StatementPrinter(new StatementFormatter(), output);
         var bankAccount = new BankAccount(transactionRepository, clock, statement);

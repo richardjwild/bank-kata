@@ -1,22 +1,22 @@
 package bank;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class TransactionRepositoryShould {
+class TransactionRepositoryShould {
 
     private TransactionRepository transactionRepository = new InMemoryTransactionRepository();
 
     @Test
-    public void be_initially_empty() {
+    void be_initially_empty() {
         assertThat(transactionRepository.findAllTransactions()).isEmpty();
     }
 
     @Test
-    public void return_all_posted_transactions() {
+    void return_all_posted_transactions() {
         var t1 = new Transaction(1, LocalDateTime.now());
         var t2 = new Transaction(2, LocalDateTime.now().plusSeconds(1));
 
