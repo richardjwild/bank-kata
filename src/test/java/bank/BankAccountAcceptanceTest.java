@@ -20,7 +20,7 @@ public class BankAccountAcceptanceTest {
 
     @Test
     public void print_a_statement_showing_posted_transactions() {
-        var transactionRepository = new TransactionRepository();
+        var transactionRepository = new InMemoryTransactionRepository();
         var statement = new StatementPrinter(new StatementFormatter(), output);
         var bankAccount = new BankAccount(transactionRepository, clock, statement);
 

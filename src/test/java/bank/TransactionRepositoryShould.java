@@ -8,7 +8,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class TransactionRepositoryShould {
 
-    private TransactionRepository transactionRepository = new TransactionRepository();
+    private TransactionRepository transactionRepository = new InMemoryTransactionRepository();
 
     @Test
     public void be_initially_empty() {
