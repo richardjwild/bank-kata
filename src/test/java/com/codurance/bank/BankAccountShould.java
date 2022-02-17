@@ -23,7 +23,7 @@ public class BankAccountShould {
     Clock clock;
 
     @Mock
-    Statement statement;
+    StatementPrinter statement;
 
     @InjectMocks
     private BankAccount account;
@@ -38,7 +38,7 @@ public class BankAccountShould {
         account.deposit(amount);
 
         var depositTransaction = new Transaction(amount, timestamp);
-        verify(transactionRepository).postTransaction(depositTransaction);
+        verify(transactionRepository).add(depositTransaction);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class BankAccountShould {
         account.withdraw(amount);
 
         var withdrawalTransaction = new Transaction(-amount, timestamp);
-        verify(transactionRepository).postTransaction(withdrawalTransaction);
+        verify(transactionRepository).add(withdrawalTransaction);
     }
 
     @Test
@@ -77,8 +77,8 @@ public class BankAccountShould {
         account.deposit(10);
         account.withdraw(5);
 
-        verify(transactionRepository).postTransaction(firstTransaction);
-        verify(transactionRepository).postTransaction(secondTransaction);
+        verify(transactionRepository).add(firstTransaction);
+        verify(transactionRepository).add(secondTransaction);
     }
 
     private Transaction aTransaction() {

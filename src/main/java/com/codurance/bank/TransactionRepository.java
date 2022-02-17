@@ -7,7 +7,7 @@ public class TransactionRepository {
 
     private List<Transaction> transactions = new ArrayList<>();
 
-    public void postTransaction(Transaction transaction) {
+    public void add(Transaction transaction) {
         transactions.add(transaction);
     }
 

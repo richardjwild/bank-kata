@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-public class Statement {
+public class StatementPrinter {
 
-    private final Output output;
-    private final StatementFormatter formatter;
+    private final PrintOutput output;
+    private final StatementFormatter statementFormatter;
 
-    public Statement(Output output) {
+    public StatementPrinter(StatementFormatter statementFormatter, PrintOutput output) {
         this.output = output;
-        this.formatter = new StatementFormatter();
+        this.statementFormatter = statementFormatter;
     }
 
     public void print(List<Transaction> transactions) {
@@ -22,7 +22,7 @@ public class Statement {
                 .sorted(Comparator.comparing(StatementLine::timestamp).reversed())
                 .forEach(statementLine -> {
             stringBuilder.append("\n");
-            stringBuilder.append(formatter.format(statementLine));
+            stringBuilder.append(statementFormatter.format(statementLine));
         });
         output.print(stringBuilder.toString());
     }

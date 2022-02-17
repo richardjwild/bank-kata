@@ -2,32 +2,30 @@ package com.codurance.bank;
 
 public class BankAccount {
 
-    private final TransactionRepository transactionRepository;
+    private final TransactionRepository repository;
     private final Clock clock;
-    private final Statement statement;
+    private final StatementPrinter statementPrinter;
 
-    public BankAccount(TransactionRepository transactionRepository, Clock clock, Statement statement) {
-        this.transactionRepository = transactionRepository;
+    public BankAccount(TransactionRepository repository, Clock clock, StatementPrinter statementPrinter) {
+        this.repository = repository;
         this.clock = clock;
-        this.statement = statement;
+        this.statementPrinter = statementPrinter;
     }
 
     public void deposit(int amount) {
-        postTransaction(amount);
+        createTransaction(amount);
     }
 
     public void withdraw(int amount) {
-        postTransaction(-amount);
+        createTransaction(amount * -1);
     }
 
-    private void postTransaction(int transactionAmount) {
-        var transaction = new Transaction(
-                transactionAmount,
-                clock.currentTime());
-        transactionRepository.postTransaction(transaction);
+    private void createTransaction(int amount) {
+        var transaction = new Transaction(amount, clock.currentTime());
+        repository.add(transaction);
     }
 
     public void statement() {
-        statement.print(transactionRepository.findAllTransactions());
+        statementPrinter.print(repository.findAllTransactions());
     }
 }

@@ -20,8 +20,8 @@ public class TransactionRepositoryShould {
         var t1 = new Transaction(1, LocalDateTime.now());
         var t2 = new Transaction(2, LocalDateTime.now().plusSeconds(1));
 
-        transactionRepository.postTransaction(t1);
-        transactionRepository.postTransaction(t2);
+        transactionRepository.add(t1);
+        transactionRepository.add(t2);
 
         assertThat(transactionRepository.findAllTransactions()).containsExactly(t1, t2);
     }
