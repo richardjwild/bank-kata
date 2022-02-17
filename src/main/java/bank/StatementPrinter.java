@@ -1,4 +1,4 @@
-package com.codurance.bank;
+package bank;
 
 import java.util.Comparator;
 import java.util.List;

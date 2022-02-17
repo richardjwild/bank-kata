@@ -1,4 +1,4 @@
-package com.codurance.bank;
+package bank;
 
 import org.junit.Before;
 import org.junit.Test;

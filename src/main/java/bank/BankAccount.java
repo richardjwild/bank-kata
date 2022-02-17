@@ -1,4 +1,4 @@
-package com.codurance.bank;
+package bank;
 
 public class BankAccount {
 
