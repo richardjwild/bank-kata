@@ -1,4 +1,7 @@
-package bank;
+package bank.helpers;
+
+import bank.Transaction;
+import bank.TransactionRepository;
 
 import java.util.ArrayList;
 import java.util.List;
