@@ -1,3 +1,7 @@
+plugins {
+    id "se.thinkcode.cucumber-runner" version "0.0.11"
+}
+
 apply plugin: 'java'
 
 repositories {
@@ -5,10 +9,9 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
-    testImplementation group: 'org.easytesting', name: 'fest-assert', version: '1.4'
-    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '4.3.1'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '7.10.1'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.10.0'
 }
 
 test {
