@@ -16,7 +16,8 @@ public class BankAccountStepDefinitions {
     private BankAccount bankAccount;
     private Timepiece clock = Mockito.mock(Timepiece.class);
     private PrintOutput printOutput = Mockito.mock(PrintOutput.class);
-    private StatementPrinter statementPrinter = new StatementPrinter();
+    private StatementLineFormatter transactionFormatter = new StatementLineFormatter();
+    private StatementPrinter statementPrinter = new StatementPrinter(printOutput, transactionFormatter);
     private TransactionRepository transactionRepository = new TransactionRepository();
 
     @Given("a new bank account")
