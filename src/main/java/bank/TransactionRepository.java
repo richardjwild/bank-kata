@@ -1,13 +1,17 @@
 package bank;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionRepository {
+
+    private List<BankAccountTransaction> transactions = new ArrayList<>();
+
     public void store(BankAccountTransaction transaction) {
-        throw new UnsupportedOperationException();
+        transactions.add(transaction);
     }
 
     public List<BankAccountTransaction> getAllTransactions() {
-        return null;
+        return transactions;
     }
 }
