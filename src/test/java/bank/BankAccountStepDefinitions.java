@@ -16,10 +16,12 @@ public class BankAccountStepDefinitions {
     private BankAccount bankAccount;
     private Timepiece clock = Mockito.mock(Timepiece.class);
     private PrintOutput printOutput = Mockito.mock(PrintOutput.class);
+    private StatementPrinter statementPrinter = new StatementPrinter();
+    private TransactionRepository transactionRepository = new TransactionRepository();
 
     @Given("a new bank account")
     public void a_new_bank_account() {
-        this.bankAccount = new BankAccount(clock);
+        this.bankAccount = new BankAccount(clock, transactionRepository, statementPrinter);
     }
 
     @When("a deposit of {int} GBP is made on {localDate}")

@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.1'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.1'
     testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '7.10.1'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.10.0'
 }
