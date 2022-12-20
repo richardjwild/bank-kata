@@ -25,13 +25,13 @@ public class BankAccountStepDefinitions {
         this.bankAccount = new BankAccount(clock, transactionRepository, statementPrinter);
     }
 
-    @When("a deposit of {int} GBP is made on {localDate}")
+    @Given("a deposit of {int} GBP is made on {localDate}")
     public void a_deposit_of_gbp_is_made_on(Integer amount, LocalDate transactionDate) {
         when(clock.getTimestamp()).thenReturn(transactionDate);
         bankAccount.deposit(amount);
     }
 
-    @When("a withdrawal of {int} GBP is made on {localDate}")
+    @Given("a withdrawal of {int} GBP is made on {localDate}")
     public void a_withdrawal_of_gbp_is_made_on(Integer amount, LocalDate transactionDate) {
         when(clock.getTimestamp()).thenReturn(transactionDate);
         bankAccount.withdraw(amount);
